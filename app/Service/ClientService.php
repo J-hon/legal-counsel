@@ -11,4 +11,42 @@ class ClientService
     {
     }
 
+    public function get(): array
+    {
+        $clients = $this->clientRepository->all();
+        return [
+            'status'  => false,
+            'message' => 'Clients retrieved',
+            'code'    => 200,
+            'data'    => $clients
+        ];
+    }
+
+    public function view(string $id): array
+    {
+        $client = $this->clientRepository->find($id);
+        return [
+            'status'  => false,
+            'message' => 'Client retrieved',
+            'code'    => 200,
+            'data'    => $client
+        ];
+    }
+
+    public function create(array $params): array
+    {
+        if (isset($params['profile_picture'])) {
+            $path                      = $params['profile_picture']->store('images');
+            $params['profile_picture'] = $path;
+        }
+
+        $this->clientRepository->create($params);
+        return [
+            'status'  => false,
+            'message' => 'Client profiled.',
+            'code'    => 201,
+            'data'    => []
+        ];
+    }
+
 }

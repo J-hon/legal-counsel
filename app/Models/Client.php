@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Client extends Model
 {
@@ -21,5 +22,10 @@ class Client extends Model
         'profile_picture',
         'case_details'
     ];
+
+    public function reminder(): HasOne
+    {
+        return $this->hasOne(Reminder::class);
+    }
 
 }

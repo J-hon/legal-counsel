@@ -16,6 +16,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       perPage: 10,
       currentPage: 1,
+      sort: 'desc',
+      sortByDesc: false,
       clients: []
     };
   },
@@ -28,6 +30,18 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     openPage: function openPage(clientId) {
       this.$router.push("/client/".concat(clientId));
+    },
+    sortByLastName: function sortByLastName() {
+      var _this2 = this;
+      this.sortByDesc = !this.sortByDesc;
+      if (this.sortByDesc) {
+        this.sort = 'asc';
+      } else {
+        this.sort = 'desc';
+      }
+      this.axios.get("api/v1/client/sort?order=".concat(this.sort)).then(function (res) {
+        _this2.clients = res.data.data;
+      });
     }
   }
 });
@@ -57,7 +71,25 @@ var render = function render() {
     }
   }, [_vm._v("Profile New Client")]), _vm._v(" "), _c("table", {
     staticClass: "table border"
-  }, [_c("thead", [_c("th", [_vm._v("Firstname")]), _vm._v(" "), _c("th", [_vm._v("Lastname")]), _vm._v(" "), _c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v(" ")])]), _vm._v(" "), _vm._l(_vm.clients, function (client) {
+  }, [_c("thead", [_c("th", [_vm._v("First name")]), _vm._v(" "), _c("th", [_vm._v("\n              Last name\n              "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.sortByLastName();
+      }
+    }
+  }, [_c("svg", {
+    staticClass: "ml-1 w-3 h-3",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      "aria-hidden": "true",
+      fill: "currentColor",
+      viewBox: "0 0 320 512"
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M27.66 224h264.7c24.6 0\n                                              36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45\n                                              8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54\n                                              47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2\n                                              317.8 316.9 288 292.3 288z"
+    }
+  })])])]), _vm._v(" "), _c("th", [_vm._v("Email")]), _vm._v(" "), _c("th", [_vm._v(" ")])]), _vm._v(" "), _vm._l(_vm.clients, function (client) {
     return _c("tbody", {
       key: client.id
     }, [_c("td", [_vm._v(_vm._s(client.first_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.last_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(client.email))]), _vm._v(" "), _c("td", [_c("b-link", {

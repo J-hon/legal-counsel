@@ -15,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('api')->group(function () {
-    Route::resource('client', ClientController::class);
+    Route::prefix('client')->group(function () {
+        Route::get('sort/{order?}', [ClientController::class, 'sort']);
+
+        Route::get('', [ClientController::class, 'index']);
+        Route::get('{id}', [ClientController::class, 'show']);
+        Route::post('', [ClientController::class, 'store']);
+    });
 });

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('api')->group(function () {
+    Route::prefix('client')->group(function () {
+        Route::get('sort/{order?}', [ClientController::class, 'sort']);
+
+        Route::get('', [ClientController::class, 'index']);
+        Route::get('{id}', [ClientController::class, 'show']);
+        Route::post('', [ClientController::class, 'store']);
+    });
 });

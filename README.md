@@ -18,7 +18,7 @@ Run the following to get started
 ```sh
 git clone https://github.com/J-hon/legal-counsel
 
-cd lawfirmx
+cd legal-counsel
 
 npm install
 
@@ -36,7 +36,7 @@ DB_USERNAME
 DB_PASSWORD
 ```
 
-Fill in maittrap credentials in the .env file
+Fill in mailtrap credentials in the .env file
 ```
 MAIL_USERNAME
 MAIL_PASSWORD

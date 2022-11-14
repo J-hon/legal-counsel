@@ -6,6 +6,7 @@ use App\Models\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -33,7 +34,10 @@ class WelcomeEmail extends Mailable implements ShouldQueue
      */
     public function envelope()
     {
-        return new Envelope(subject: 'Welcome Email');
+        return new Envelope(
+            from: new Address('lawfirmx@example.com', 'Law Firm X'),
+            subject: 'Welcome to Law Firm X'
+        );
     }
 
     /**
@@ -43,7 +47,7 @@ class WelcomeEmail extends Mailable implements ShouldQueue
      */
     public function content()
     {
-        return new Content(view: 'mails.welcome');
+        return new Content(view: 'mails.welcome-mail');
     }
 
     /**

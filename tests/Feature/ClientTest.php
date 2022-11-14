@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Mail\WelcomeEmail;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ClientTest extends TestCase
@@ -11,6 +13,8 @@ class ClientTest extends TestCase
 
     public function test_client_can_be_profiled()
     {
+        Mail::fake();
+
         $payload = [
             'first_name'            => $this->faker->firstName,
             'last_name'             => $this->faker->lastName,
@@ -25,6 +29,8 @@ class ClientTest extends TestCase
             ->assertStatus(201);
 
         $this->assertFileExists($payload['profile_picture']);
+
+        Mail::assertQueued(WelcomeEmail::class);
 
         $this->assertDatabaseHas('clients', Arr::except($payload, ['profile_picture']));
     }

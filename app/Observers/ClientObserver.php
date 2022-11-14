@@ -11,7 +11,7 @@ class ClientObserver
 
     public function created(Client $client): void
     {
-        Mail::to($client->email)->queue(new WelcomeEmail($client));
+        Mail::to($client->email)->send(new WelcomeEmail($client));
     }
 
 }

@@ -36,6 +36,17 @@ class ClientController extends BaseController
         );
     }
 
+    public function sort(): JsonResponse
+    {
+        $response = $this->clientService->sort(request('order', 'desc'));
+        return $this->responseJson(
+            $response['status'],
+            $response['code'],
+            $response['message'],
+            ClientResource::collection($response['data'])
+        );
+    }
+
     public function store(CreateClientRequest $request): JsonResponse
     {
         $response = $this->clientService->create($request->validated());

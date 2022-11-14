@@ -33,6 +33,17 @@ class ClientService
         ];
     }
 
+    public function sort(string $order): array
+    {
+        $clients = $this->clientRepository->sort('last_name', $order);
+        return [
+            'status'  => false,
+            'message' => 'Clients sorted',
+            'code'    => 200,
+            'data'    => $clients
+        ];
+    }
+
     public function create(array $params): array
     {
         if (isset($params['profile_picture'])) {

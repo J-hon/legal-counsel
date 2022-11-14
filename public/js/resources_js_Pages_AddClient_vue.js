@@ -16,13 +16,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       client: {
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         email: '',
-        primaryLegalCounsel: '',
-        dateOfBirth: '',
-        profileImage: null,
-        caseDetails: ''
+        primary_legal_counsel: '',
+        date_of_birth: '',
+        profile_picture: null,
+        case_details: ''
       }
     };
   },
@@ -31,11 +31,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       event.preventDefault();
       this.axios.post("/api/v1/client", this.client).then(function (response) {
-        if (response.data.status) {
-          _this.makeToast("Success", response.data.message, 'success');
-        } else {
-          _this.makeToast("Success", response.data.message, 'danger');
-        }
         _this.$router.push({
           name: 'home'
         });
